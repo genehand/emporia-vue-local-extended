@@ -1,7 +1,7 @@
 # Emporia Vue Local Extended
 
-This is a more advanced and much more easily configured Emporia Vue ESPHome Template.
-This is really made for users at the tail ends of the power monitoring bell curve.
+This is a more advanced and much more easily configured Emporia Vue ESPHome Template (plus a small external component).
+This is really made for users at either tail end of the energy monitoring bell curve, as it's both easier to set up and gives you access to a lot more data by way of some simple calculations.
 
 ## Just copy over the example_config.yaml into your esphome dashboard and all of the required external components and sensor setups are pulled in and set up automatically.
 
@@ -118,3 +118,13 @@ V_{\text{phase}} * A_{\text{apparent}} = \text{VA}
 ```math
 \frac{W}{\text{VA}} = \text{PF}
 ```
+## Notes
+The bottleneck on update_rate is always going to be your HomeAssistant host and database preformance. I've been running two of these devices doing all of these calculations at a 500ms update rate for over 2 years now with no meaningful issues.
+- My Homeassistant server is a Proxmox VM running at <20% CPU utilization on 4 Intel i5 cores. YMMV
+The default homeassistant database isn't designed for time series data (despite heavy optimization), but the recorder is. I highly recommend setting up a real Time Searies Database (either as a homeassistant add-on or standalone/VM)
+- I use the InfluxDB integration to send data to a VictoriaMetrics Container and visualize using Grafana
+- InfluxDB v2 also works well, but I moved away due to liscensing concerns with the free version.
+NTP time isn't neccessary, because of the Homeassistant API, but in my experience the NTP timesource is far more reliable
+- for some reason I was seeing the HA API time (which is derived from NTP) drift by up to 5 seconds per day. I think the API only syncs time on boot of the ESP
+- The Chrony Homeassistant Add-on will let you set up an NTP server on your HA host, which allows the ESP to sync every 10-15 minutes.
+Depending on what you're doing with your Daily Energy numbers, it may be useful to go as fast as a 1s update rate.
