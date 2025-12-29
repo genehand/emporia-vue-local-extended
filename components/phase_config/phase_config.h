@@ -10,55 +10,55 @@
 #include <cctype>
 
 namespace esphome {
-namespace phaseconfig {
+namespace phase_config {
 
 class PhaseConfig : public Component {
 public:
   void setup() override;
 
   // setters wired from YAML via init.py
-  void setoverallvoltage(sensor::Sensor s) { overallvoltage = s; }
-  void setphaseabvoltage(sensor::Sensor s) { phaseabvoltage = s; }
-  void setphasebcvoltage(sensor::Sensor s) { phasebcvoltage = s; }
-  void setphaseacvoltage(sensor::Sensor s) { phaseacvoltage = s; }
-  void setphaseavoltage(sensor::Sensor s) { phaseavoltage = s; }
-  void setphasebvoltage(sensor::Sensor s) { phasebvoltage = s; }
-  void setphasecvoltage(sensor::Sensor s) { phasecvoltage = s; }
+  void set_overall_voltage(sensor::Sensor *s) { overall_voltage_ = s; }
+  void set_phase_a_b_voltage(sensor::Sensor *s) { phase_a_b_voltage_ = s; }
+  void set_phase_b_c_voltage(sensor::Sensor *s) { phase_b_c_voltage_ = s; }
+  void set_phase_a_c_voltage(sensor::Sensor *s) { phase_a_c_voltage_ = s; }
+  void set_phase_a_voltage(sensor::Sensor *s) { phase_a_voltage_ = s; }
+  void set_phase_b_voltage(sensor::Sensor *s) { phase_b_voltage_ = s; }
+  void set_phase_c_voltage(sensor::Sensor *s) { phase_c_voltage_ = s; }
 
-  float voltagebyphase(const std::string &phaseraw) const;
-  float singlephasevoltage(const std::string &phaseraw) const;
+  float voltage_by_phase(const std::string &phaseraw) const;
+  float single_phase_voltage(const std::string &phaseraw) const;
 
 private:
-  static std::string normalizephase(std::string phase);
+  static std::string normalize_phase_(std::string phase);
 
-  sensor::Sensor overallvoltage{nullptr};
-  sensor::Sensor phaseabvoltage{nullptr};
-  sensor::Sensor phasebcvoltage{nullptr};
-  sensor::Sensor phaseacvoltage{nullptr};
-  sensor::Sensor phaseavoltage{nullptr};
-  sensor::Sensor phasebvoltage{nullptr};
-  sensor::Sensor phasecvoltage{nullptr};
+  sensor::Sensor *overall_voltage_{nullptr};
+  sensor::Sensor *phase_a_b_voltage_{nullptr};
+  sensor::Sensor *phase_b_c_voltage_{nullptr};
+  sensor::Sensor *phase_a_c_voltage_{nullptr};
+  sensor::Sensor *phase_a_voltage_{nullptr};
+  sensor::Sensor *phase_b_voltage_{nullptr};
+  sensor::Sensor *phase_c_voltage_{nullptr};
 };
 
 // Singleton pointer set in setup()
-extern PhaseConfig *gphaseconfig;
+extern PhaseConfig *g_phase_config;
 
-}  // namespace phaseconfig
+}  // namespace phase_config
 }  // namespace esphome
 
 // ---- Public functions used by lambdas (unchanged signatures) ----
 
 // Map phase string to the configured sensor's voltage.
 // Returns NAN if not configured.
-inline float voltagebyphase(const std::string &phaseraw) {
-  if (esphome::phaseconfig::gphaseconfig == nullptr) return NAN;
-  return esphome::phaseconfig::gphaseconfig->voltagebyphase(phaseraw);
+inline float voltage_by_phase(const std::string &phase_raw) {
+  if (esphome::phase_config::g_phase_config == nullptr) return NAN;
+  return esphome::phase_config::g_phase_config->voltage_by_phase(phase_raw);
 }
 
 // Return the single-phase voltage based on first letter of (normalized) phase string.
-inline float singlephasevoltage(const std::string &phaseraw) {
-  if (esphome::phaseconfig::gphaseconfig == nullptr) return NAN;
-  return esphome::phaseconfig::gphaseconfig->singlephasevoltage(phaseraw);
+inline float single_phase_voltage(const std::string &phase_raw) {
+  if (esphome::phase_config::g_phase_config == nullptr) return NAN;
+  return esphome::phase_config::g_phase_config->singl_ephase_voltage(phase_raw);
 }
 
 // Backfeed handling: callers pass a bool backfeed (true means backfeed into the circuit is allowed).
