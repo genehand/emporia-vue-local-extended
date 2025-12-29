@@ -4,15 +4,14 @@ external_components:
       type: git
       url: https://github.com/emporia-vue-local/esphome
       ref: dev
-    components:
-      - emporia_vue
+    components: [emporia_vue]
       
   - source:
       type: git
       url: https://github.com/Legot/emporia-vue-local-extended
       ref: main
-    components:
-      - phase_config
+    components: [phase_config]
+    refresh: 0s
 
 #phase_config:
 
