@@ -58,7 +58,7 @@ inline float voltage_by_phase(const std::string &phase_raw) {
 // Return the single-phase voltage based on first letter of (normalized) phase string.
 inline float single_phase_voltage(const std::string &phase_raw) {
   if (esphome::phase_config::g_phase_config == nullptr) return NAN;
-  return esphome::phase_config::g_phase_config->single_ephase_voltage(phase_raw);
+  return esphome::phase_config::g_phase_config->single_phase_voltage(phase_raw);
 }
 
 // Backfeed handling: callers pass a bool backfeed (true means backfeed into the circuit is allowed).
