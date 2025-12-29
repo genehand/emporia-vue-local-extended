@@ -1,5 +1,5 @@
 import esphome.codegen as cg
-import esphome.config_validataion as cv
+import esphome.config_validation as cv
 
 CONFIG_SCHEMA = cv.Schema({})
 
