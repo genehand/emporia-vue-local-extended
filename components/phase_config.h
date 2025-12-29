@@ -1,6 +1,7 @@
 // phase_config.h — helper for mapping CT phase strings to the correct voltage sensor
 #pragma once
-#include "esphome.h"
+//#include "esphome.h"
+#include <string>
 #include <algorithm>
 #include <cctype>
 
