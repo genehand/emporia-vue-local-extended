@@ -15,7 +15,7 @@ CONF_PHASE_A_VOLTAGE = "phase_a_voltage"
 CONF_PHASE_B_VOLTAGE = "phase_b_voltage"
 CONF_PHASE_C_VOLTAGE = "phase_c_voltage"
 
-CONFIGSCHEMA = cv.Schema(
+CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(): cv.declare_id(PhaseConfig),
 
