@@ -4,7 +4,8 @@
 #include <algorithm>
 #include <cctype>
 
-using namespace esphome;
+namespace esphome {
+namespace emporia_vue_extended {
 
 // Normalize a phase string: lowercase, trim whitespace, default to "a" if empty.
 inline std::string normalize_phase(std::string phase) {
@@ -40,4 +41,7 @@ inline float single_phase_voltage(const std::string &phase_raw) {
 inline float backfeedable(bool backfeed, float value) {
   if (!backfeed && value < 0.0f) return 0.0f;
   return value;
+}
+
+}
 }
