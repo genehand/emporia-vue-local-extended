@@ -1,12 +1,9 @@
 // phase_config.h — helper for mapping CT phase strings to the correct voltage sensor
 #pragma once
-//#include "esphome.h"
+#include "esphome.h"
 #include <string>
 #include <algorithm>
 #include <cctype>
-
-namespace esphome {
-namespace emporia_vue_extended {
 
 // Normalize a phase string: lowercase, trim whitespace, default to "a" if empty.
 inline std::string normalize_phase(std::string phase) {
@@ -42,7 +39,4 @@ inline float single_phase_voltage(const std::string &phase_raw) {
 inline float backfeedable(bool backfeed, float value) {
   if (!backfeed && value < 0.0f) return 0.0f;
   return value;
-}
-
-}
 }
