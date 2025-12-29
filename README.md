@@ -3,8 +3,8 @@
 This is a more advanced and much more easily configured Emporia Vue ESPHome Template (plus a small external component).
 This is really made for users at either tail end of the energy monitoring bell curve, as it's both easier to set up and gives you access to a lot more data by way of some simple calculations.
 
-## Just copy over the example_config.yaml into your esphome dashboard and all of the required external components and sensor setups are pulled in and set up automatically.
-
+### Just copy over the example_config.yaml into your esphome dashboard and all of the required external components and sensor setups are pulled in and set up automatically.
+## Overview
 ### Original Project
 The original project (which provides the entirety of the underlying esphome component) here: 
 - [Emporia Vue Local GitHub](https://github.com/emporia-vue-local)
