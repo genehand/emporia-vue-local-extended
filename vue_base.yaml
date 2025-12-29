@@ -13,7 +13,14 @@ external_components:
     components: [phase_config]
     refresh: 0s
 
-phase_config:
+phase_config: # Do Not edit here. Edit the substitutions.
+  overall_voltage: overall_voltage
+  phase_a_b_voltage: phase_a_b_voltage
+  phase_b_c_voltage: phase_b_c_voltage
+  phase_a_c_voltage: phase_a_c_voltage
+  phase_a_voltage: phase_a_voltage
+  phase_b_voltage: phase_b_voltage
+  phase_c_voltage: phase_c_voltage
 
 packages:
   - !include sensors/apparent_current.yaml
