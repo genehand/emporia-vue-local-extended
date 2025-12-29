@@ -13,7 +13,7 @@ void PhaseConfig::setup() {
 }
 
 // Normalize a phase string: lowercase, trim whitespace, default to "a" if empty.
-std::string PhaseConfig::normalize_phase(std::string phase) {
+std::string PhaseConfig::normalize_phase_(std::string phase) {
   for (auto &ch : phase) ch = static_cast<char>(std::tolower(static_cast<unsigned char>(ch)));
   phase.erase(std::remove_if(phase.begin(), phase.end(),
                               [](char c) { return std::isspace(static_cast<unsigned char>(c)); }),
