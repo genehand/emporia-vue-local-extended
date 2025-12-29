@@ -6,7 +6,15 @@ external_components:
       ref: dev
     components:
       - emporia_vue
-  - source: github://Legot/emporia-vue-local-extended@main
+      
+  - source:
+      type: git
+      url: github://Legot/emporia-vue-local-extended
+      ref: main
+    components:
+      - phase_config
+
+phase_config:
 
 packages:
   - !include sensors/apparent_current.yaml
