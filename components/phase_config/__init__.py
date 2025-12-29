@@ -39,7 +39,7 @@ async def to_code(config):
         cg.RawExpression('#include "esphome/components/phase_config/phase_config.h"')
     )
 
-    var = cg.new_Pvariable(config[CONFID])
+    var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
 
     overall = await cg.get_variable(config[CONF_OVERALL_VOLTAGE])
