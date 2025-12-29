@@ -9,7 +9,7 @@ external_components:
       
   - source:
       type: git
-      url: github://Legot/emporia-vue-local-extended
+      url: https://github.com/Legot/emporia-vue-local-extended
       ref: main
     components:
       - phase_config
