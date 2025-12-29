@@ -27,6 +27,8 @@ packages:
   - !include sensors/inputs.yaml
 
 esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
   on_boot: #beeps the buzzer
     then:
       - rtttl.play: 'two_short:d=4,o=5,b=100:16e6,16e6'
