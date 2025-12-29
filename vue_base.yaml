@@ -14,7 +14,7 @@ external_components:
     components:
       - phase_config
 
-phase_config:
+#phase_config:
 
 packages:
   - !include sensors/apparent_current.yaml
