@@ -36,7 +36,9 @@ CONFIG_SCHEMA = cv.Schema(
 async def to_code(config):
     # Ensure helper functions are visible to lambdas
     cg.add_global(
-        cg.RawExpression('#include "esphome/components/phase_config/phase_config.h"')
+        cg.RawStatement(
+            '#include "esphome/components/phase_config/phase_config.h"'
+        )
     )
 
     var = cg.new_Pvariable(config[CONF_ID])
