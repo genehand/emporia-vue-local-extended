@@ -1,0 +1,77 @@
+packages:
+  - !include sensors/apparent_current.yaml
+  - !include sensors/apparent_power.yaml
+  - !include sensors/daily_energy.yaml
+  - !include sensors/grid_sensors.yaml
+  - !include sensors/power_factor.yaml
+  - !include sensors/real_current.yaml
+  - !include sensors/real_power.yaml
+  - !include sensors/voltage.yaml
+  - !include sensors/inputs.yaml
+
+esphome:
+  includes:
+    - common/devices/emporia-vue-local-extended/phase_config.h # this is the function set that selects voltage based on phase configuration
+  on_boot: #beeps the buzzer
+    then:
+      - rtttl.play: 'two_short:d=4,o=5,b=100:16e6,16e6'
+
+external_components:
+  - source: github://emporia-vue-local/esphome@dev
+    components:
+      - emporia_vue
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+
+api:
+  services:
+    - service: play_rtttl
+      variables:
+        song_str: string
+      then:
+        - rtttl.play:
+            rtttl: !lambda 'return song_str;'
+
+logger:
+  logs:
+    # by default, every reading will be printed to the UART, which is very slow
+    # This will disable printing the readings but keep other helpful messages
+    sensor: INFO
+  # level: VERBOSE
+
+preferences:
+  # please also make sure `restore: false` is set on all `platform: total_daily_energy`
+  # sensors below.
+  flash_write_interval: "48h"
+
+output:
+  - platform: ledc
+    pin:
+      number: GPIO12
+      ignore_strapping_warning: true
+    id: buzzer
+  - platform: gpio
+    pin: GPIO27
+    id: buzzer_gnd
+
+rtttl:
+  output: buzzer
+  on_finished_playback:
+    - logger.log: 'Song ended!'
+
+status_led:
+  pin:
+    number: 23
+    inverted: True
+
+i2c:
+  sda: 21
+  scl: 22
+  scan: false
+  frequency: 400kHz  # recommended range is 50-200kHz
+  timeout: 1ms #https://github.com/esphome/issues/issues/6335#issuecomment-2418437672
+  id: i2c_a
