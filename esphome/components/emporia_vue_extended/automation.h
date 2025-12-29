@@ -1,7 +1,1 @@
-#pragma once
-
-#ifdef USE_ESP32
-
-#include "emporia_vue.h"
-
-#endif
+#include "phase_config.h.h"
