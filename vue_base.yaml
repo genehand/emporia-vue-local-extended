@@ -7,11 +7,11 @@ external_components:
     components:
       - emporia_vue
 
-  # - source:
-  #     type: git
-  #     url: https://github.com/Legot/emporia-vue-local-extended
-  #   components:
-  #     - emporia-vue-extended
+  - source:
+      type: git
+      url: https://github.com/Legot/emporia-vue-local-extended
+    components:
+      - emporia_vue_extended
 
 packages:
   - !include sensors/apparent_current.yaml
@@ -25,8 +25,6 @@ packages:
   - !include sensors/inputs.yaml
 
 esphome:
-  includes:
-    - phase_config.h # this is the function set that selects voltage based on phase configuration
   on_boot: #beeps the buzzer
     then:
       - rtttl.play: 'two_short:d=4,o=5,b=100:16e6,16e6'
