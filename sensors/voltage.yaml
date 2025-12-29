@@ -1,0 +1,36 @@
+
+sensor:
+###########################
+## Voltage Configuration ##
+###########################
+  - &template_voltage
+    platform: template
+    id: overall_voltage
+    lambda: |-
+        float sq_a = pow(id(phase_a_voltage).state, 2);
+        float sq_b = pow(id(phase_b_voltage).state, 2);
+        float sq_c = pow(id(phase_c_voltage).state, 2);
+        bool disabled = "${ct_c.disable}";
+        return disabled ? sqrt(sq_a + sq_b) : cbrt(sq_a + sq_b + sq_c);
+    update_interval: never
+    device_class: voltage
+    state_class: measurement
+    unit_of_measurement: "V"
+
+  - <<: *template_voltage
+    name: "Phase AB Voltage"
+    id: phase_a_b_voltage
+    lambda: 'return id(phase_a_voltage).state + id(phase_b_voltage).state;'
+    internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase
+
+  - <<: *template_voltage
+    name: "Phase BC Voltage"
+    id: phase_b_c_voltage
+    lambda: 'return id(phase_b_voltage).state + id(phase_c_voltage).state;'
+    internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase
+
+  - <<: *template_voltage
+    name: "Phase AC Voltage"
+    id: phase_a_c_voltage
+    lambda: 'return id(phase_a_voltage).state + id(phase_c_voltage).state;'
+    internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase

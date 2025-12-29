@@ -1,0 +1,192 @@
+
+  sensor:
+#########################
+  ## Power Configuration ##
+  #########################
+
+##############################
+## Real Power Configuration ##
+## Ensure the right phases  ##
+##############################
+  - &template_realpower
+    platform: template
+    id: total_realpower
+    lambda: 'return id(phase_a_realpower).state + id(phase_b_realpower).state + id(phase_c_realpower).state;'
+    update_interval: never
+    device_class: power
+    state_class: measurement
+    unit_of_measurement: W
+
+#####################################
+  - <<: *template_realpower
+    id: phase_a_realpower
+    lambda: 'return backfeedable(${ct_a.backfeed}, id(phase_a_powermeas).state);'
+
+  - <<: *template_realpower
+    id: phase_b_realpower
+    lambda: 'return backfeedable(${ct_b.backfeed}, id(phase_b_powermeas).state);'
+
+  - <<: *template_realpower
+    id: phase_c_realpower
+    lambda: 'return backfeedable(${ct_c.backfeed}, id(phase_c_powermeas).state);'
+
+#####################################
+
+  - <<: *template_realpower
+    id: cir1_realpower
+    lambda: 'return backfeedable(${ct_1.backfeed}, id(cir1_powermeas).state / single_phase_voltage("${ct_1.phase}") * voltage_by_phase("${ct_1.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir2_realpower
+    lambda: 'return backfeedable(${ct_2.backfeed}, id(cir2_powermeas).state / single_phase_voltage("${ct_2.phase}") * voltage_by_phase("${ct_2.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir3_realpower
+    lambda: 'return backfeedable(${ct_3.backfeed}, id(cir3_powermeas).state / single_phase_voltage("${ct_3.phase}") * voltage_by_phase("${ct_3.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir4_realpower
+    lambda: 'return backfeedable(${ct_4.backfeed}, id(cir4_powermeas).state / single_phase_voltage("${ct_4.phase}") * voltage_by_phase("${ct_4.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir5_realpower
+    lambda: 'return backfeedable(${ct_5.backfeed}, id(cir5_powermeas).state / single_phase_voltage("${ct_5.phase}") * voltage_by_phase("${ct_5.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir6_realpower
+    lambda: 'return backfeedable(${ct_6.backfeed}, id(cir6_powermeas).state / single_phase_voltage("${ct_6.phase}") * voltage_by_phase("${ct_6.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir7_realpower
+    lambda: 'return backfeedable(${ct_7.backfeed}, id(cir7_powermeas).state / single_phase_voltage("${ct_7.phase}") * voltage_by_phase("${ct_7.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir8_realpower
+    lambda: 'return backfeedable(${ct_8.backfeed}, id(cir8_powermeas).state / single_phase_voltage("${ct_8.phase}") * voltage_by_phase("${ct_8.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir9_realpower
+    lambda: 'return backfeedable(${ct_9.backfeed}, id(cir9_powermeas).state / single_phase_voltage("${ct_9.phase}") * voltage_by_phase("${ct_9.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir10_realpower
+    lambda: 'return backfeedable(${ct_10.backfeed}, id(cir10_powermeas).state / single_phase_voltage("${ct_10.phase}") * voltage_by_phase("${ct_10.phase}"));' 
+
+
+  - <<: *template_realpower
+    id: cir11_realpower
+    lambda: 'return backfeedable(${ct_11.backfeed}, id(cir11_powermeas).state / single_phase_voltage("${ct_11.phase}") * voltage_by_phase("${ct_11.phase}"));' 
+
+  - <<: *template_realpower
+    id: cir12_realpower
+    lambda: 'return backfeedable(${ct_12.backfeed}, id(cir12_powermeas).state / single_phase_voltage("${ct_12.phase}") * voltage_by_phase("${ct_12.phase}"));' 
+
+  - <<: *template_realpower
+    id: cir13_realpower
+    lambda: 'return backfeedable(${ct_13.backfeed}, id(cir13_powermeas).state / single_phase_voltage("${ct_13.phase}") * voltage_by_phase("${ct_13.phase}"));' 
+
+  - <<: *template_realpower
+    id: cir14_realpower
+    lambda: 'return backfeedable(${ct_14.backfeed}, ( id(cir14_powermeas).state / single_phase_voltage("${ct_14.phase}") ) * voltage_by_phase("${ct_14.phase}"));' 
+
+  - <<: *template_realpower
+    id: cir15_realpower
+    lambda: 'return backfeedable(${ct_15.backfeed}, ( id(cir15_powermeas).state / single_phase_voltage("${ct_15.phase}") ) * voltage_by_phase("${ct_15.phase}"));' 
+
+  - <<: *template_realpower
+    id: cir16_realpower
+    lambda: 'return backfeedable(${ct_16.backfeed}, ( id(cir16_powermeas).state / single_phase_voltage("${ct_16.phase}") ) * voltage_by_phase("${ct_16.phase}"));' 
+#####################################
+
+  - &copy_realpower_sensor
+    platform: copy
+    device_id: cir1
+    source_id: cir1_realpower
+    name: "Power"
+    internal: ${ct_1.disable}
+    filters:
+      throttle_average: ${sensor_update_rate}
+  
+  - <<: *copy_realpower_sensor
+    device_id: cir2
+    source_id: cir2_realpower
+    internal: ${ct_2.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir3
+    source_id: cir3_realpower
+    internal: ${ct_3.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir4
+    source_id: cir4_realpower
+    internal: ${ct_4.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir5
+    source_id: cir5_realpower
+    internal: ${ct_5.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir6
+    source_id: cir6_realpower
+    internal: ${ct_6.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir7
+    source_id: cir7_realpower
+    internal: ${ct_7.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir8
+    source_id: cir8_realpower
+    internal: ${ct_8.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir9
+    source_id: cir9_realpower
+    internal: ${ct_9.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir10
+    source_id: cir10_realpower
+    internal: ${ct_10.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir11
+    source_id: cir11_realpower
+    internal: ${ct_11.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir12
+    source_id: cir12_realpower
+    internal: ${ct_12.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir13
+    source_id: cir13_realpower
+    internal: ${ct_13.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir14
+    source_id: cir14_realpower
+    internal: ${ct_14.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir15
+    source_id: cir15_realpower
+    internal: ${ct_15.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: cir16
+    source_id: cir16_realpower
+    internal: ${ct_16.disable}

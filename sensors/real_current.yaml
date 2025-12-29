@@ -1,0 +1,194 @@
+  sensor:
+################################
+## Real Current Configuration ##
+## Ensure the right phases    ##
+## never uses overall_voltage ##
+################################
+  - &template_realcurrent
+    platform: template
+    id: total_realcurrent
+    lambda: 'return id(total_realpower).state / id(overall_voltage).state;'
+    update_interval: never
+    device_class: current
+    state_class: measurement
+    unit_of_measurement: A
+
+  - <<: *template_realcurrent
+    id: phase_a_realcurrent
+    lambda: 'return backfeedable(${ct_a.backfeed}, id(phase_a_powermeas).state / voltage_by_phase("${ct_a.phase}"));' 
+
+
+  - <<: *template_realcurrent
+    id: phase_b_realcurrent
+    lambda: 'return backfeedable(${ct_b.backfeed}, id(phase_b_powermeas).state / voltage_by_phase("${ct_b.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: phase_c_realcurrent
+    lambda: 'return backfeedable(${ct_c.backfeed}, id(phase_c_powermeas).state / voltage_by_phase("${ct_c.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir1_realcurrent
+    lambda: 'return backfeedable(${ct_1.backfeed}, id(cir1_powermeas).state / voltage_by_phase("${ct_1.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir2_realcurrent
+    lambda: 'return backfeedable(${ct_2.backfeed}, id(cir2_powermeas).state / voltage_by_phase("${ct_2.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir3_realcurrent
+    lambda: 'return backfeedable(${ct_3.backfeed}, id(cir3_powermeas).state / voltage_by_phase("${ct_3.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir4_realcurrent
+    lambda: 'return backfeedable(${ct_4.backfeed}, id(cir4_powermeas).state / voltage_by_phase("${ct_4.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir5_realcurrent
+    lambda: 'return backfeedable(${ct_5.backfeed}, id(cir5_powermeas).state / voltage_by_phase("${ct_5.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir6_realcurrent
+    lambda: 'return backfeedable(${ct_6.backfeed}, id(cir6_powermeas).state / voltage_by_phase("${ct_6.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir7_realcurrent
+    lambda: 'return backfeedable(${ct_7.backfeed}, id(cir7_powermeas).state / voltage_by_phase("${ct_7.phase}"));'
+
+  - <<: *template_realcurrent
+    id: cir8_realcurrent
+    lambda: 'return backfeedable(${ct_8.backfeed}, id(cir8_powermeas).state / voltage_by_phase("${ct_8.phase}"));'
+
+  - <<: *template_realcurrent
+    id: cir9_realcurrent
+    lambda: 'return backfeedable(${ct_9.backfeed}, id(cir9_powermeas).state / voltage_by_phase("${ct_9.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir10_realcurrent
+    lambda: 'return backfeedable(${ct_10.backfeed}, id(cir10_powermeas).state / voltage_by_phase("${ct_10.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir11_realcurrent
+    lambda: 'return backfeedable(${ct_11.backfeed}, id(cir11_powermeas).state / voltage_by_phase("${ct_11.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir12_realcurrent
+    lambda: 'return backfeedable(${ct_12.backfeed}, id(cir12_powermeas).state / voltage_by_phase("${ct_12.phase}"));'
+
+  - <<: *template_realcurrent
+    id: cir13_realcurrent
+    lambda: 'return backfeedable(${ct_13.backfeed}, id(cir13_powermeas).state / voltage_by_phase("${ct_13.phase}"));'
+
+  - <<: *template_realcurrent
+    id: cir14_realcurrent
+    lambda: 'return backfeedable(${ct_14.backfeed}, id(cir14_powermeas).state / voltage_by_phase("${ct_14.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir15_realcurrent
+    lambda: 'return backfeedable(${ct_15.backfeed}, id(cir15_powermeas).state / voltage_by_phase("${ct_15.phase}"));'
+
+
+  - <<: *template_realcurrent
+    id: cir16_realcurrent
+    lambda: 'return backfeedable(${ct_16.backfeed}, id(cir16_powermeas).state / voltage_by_phase("${ct_16.phase}"));'
+
+
+################################
+  ## Real Current Configuration ##
+  ################################
+  - &copy_realcurrent_sensor
+    platform: copy
+    device_id: cir1
+    source_id: cir1_realcurrent
+    name: "Current"
+    internal: ${ct_1.disable}
+    filters:
+      throttle_average: ${sensor_update_rate}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir2
+    source_id: cir2_realcurrent
+    internal: ${ct_2.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir3
+    source_id: cir3_realcurrent
+    internal: ${ct_3.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir4
+    source_id: cir4_realcurrent
+    internal: ${ct_4.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir5
+    source_id: cir5_realcurrent
+    internal: ${ct_5.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir6
+    source_id: cir6_realcurrent
+    internal: ${ct_6.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir7
+    source_id: cir7_realcurrent
+    internal: ${ct_7.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir8
+    source_id: cir8_realcurrent
+    internal: ${ct_8.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir9
+    source_id: cir9_realcurrent
+    internal: ${ct_9.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir10
+    source_id: cir10_realcurrent
+    internal: ${ct_10.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir11
+    source_id: cir11_realcurrent
+    internal: ${ct_11.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir12
+    source_id: cir12_realcurrent
+    internal: ${ct_12.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir13
+    source_id: cir13_realcurrent
+    internal: ${ct_13.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir14
+    source_id: cir14_realcurrent
+    internal: ${ct_14.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir15
+    source_id: cir15_realcurrent
+    name: "Current"
+    internal: ${ct_15.disable}
+
+  - <<: *copy_realcurrent_sensor
+    device_id: cir16
+    source_id: cir16_realcurrent
+    internal: ${ct_16.disable}
+

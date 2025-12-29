@@ -1,0 +1,105 @@
+
+  sensor:
+##########################
+  ## Energy Configuration ##
+  ##########################
+  - &total_daily_energy_sensor
+    platform: total_daily_energy
+    device_id: cir1
+    power_id: cir1_realpower
+    accuracy_decimals: 0
+    method: trapezoid
+    restore: false
+    filters:
+      throttle: ${energy_update_rate}
+    name: "Daily Energy"
+    internal: ${ct_1.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir2
+    power_id: cir2_realpower
+    internal: ${ct_2.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir3
+    power_id: cir3_realpower
+    internal: ${ct_3.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir4
+    power_id: cir4_realpower
+    internal: ${ct_4.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir5
+    power_id: cir5_realpower
+    internal: ${ct_5.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir6
+    power_id: cir6_realpower
+    internal: ${ct_6.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir7
+    power_id: cir7_realpower
+    internal: ${ct_7.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir8
+    power_id: cir8_realpower
+    internal: ${ct_8.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir9
+    power_id: cir9_realpower
+    internal: ${ct_9.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir10
+    power_id: cir10_realpower
+    internal: ${ct_10.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir11
+    power_id: cir11_realpower
+    internal: ${ct_11.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir12
+    power_id: cir12_realpower
+    internal: ${ct_12.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir13
+    power_id: cir13_realpower
+    internal: ${ct_13.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir14
+    power_id: cir14_realpower
+    internal: ${ct_14.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir15
+    power_id: cir15_realpower
+    internal: ${ct_15.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: cir16
+    power_id: cir16_realpower
+    internal: ${ct_16.disable}
+
+  - <<: *total_daily_energy_sensor
+    device_id: grid_service
+    power_id: total_realpower
+    name: "Total Daily Energy"
+    internal: ${ct_a.disable}
+
+
+
+
+
+
+
+

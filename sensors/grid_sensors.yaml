@@ -1,0 +1,135 @@
+sensor:
+#########################################
+## Grid Sensors ##
+#########################################
+  - &copy_grid_sensor
+    platform: copy
+    device_id: grid_service
+    source_id: phase_a_angle
+    filters:
+      throttle_average: ${sensor_update_rate}
+    name: "Phase Angle A-B"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: frequency
+    name: "Frequency"
+    internal: ${ct_b.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_c_angle
+    name: "Phase Angle B-C"
+    internal: ${ct_c.disable}
+  
+## Phase Voltages  ##
+  - <<: *copy_grid_sensor
+    source_id: overall_voltage
+    name: "Total Voltage"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_a_voltage
+    name: "Phase A Voltage"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_b_voltage
+    name: "Phase B Voltage"
+    internal: ${ct_b.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_c_voltage
+    name: "Phase C Voltage"
+    internal: ${ct_c.disable}
+
+## Phase Powers
+  - <<: *copy_grid_sensor
+    source_id: total_realpower
+    name: "Total Power"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_a_realpower
+    name: "Phase A Power"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_b_realpower
+    name: "Phase B Power"
+    internal: ${ct_b.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_c_realpower
+    name: "Phase C Power"
+    internal: ${ct_c.disable}
+
+## Phase currents
+  - <<: *copy_grid_sensor
+    source_id: total_realcurrent
+    name: "Total Current"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_a_realcurrent
+    name: "Phase A Current"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_b_realcurrent
+    name: "Phase B Current"
+    internal: ${ct_b.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_c_realcurrent
+    name: "Phase C Current"
+    internal: ${ct_c.disable}
+
+
+  ## Apparent Current Configuration ##
+  - <<: *copy_grid_sensor
+    source_id: total_apparentcurrent
+    name: "Total Apparent Current"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_a_apparentcurrent
+    name: "Phase A Apparent Current"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_b_apparentcurrent
+    name: "Phase B Apparent Current"
+    internal: ${ct_b.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_c_apparentcurrent
+    name: "Phase C Apparent Current"
+    internal: ${ct_c.disable}
+
+## Apparent Power
+  - <<: *copy_grid_sensor
+    source_id: total_apparentpower
+    name: "Total Apparent Power"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_a_apparentpower
+    name: "Phase A Apparent Power"
+    internal: ${ct_a.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_b_apparentpower
+    name: "Phase B Apparent Power"
+    internal: ${ct_b.disable}
+
+  - <<: *copy_grid_sensor
+    source_id: phase_c_apparentpower
+    name: "Phase C Apparent Power"
+    internal: ${ct_c.disable}
+
+
+## Power Factor Configuration ##
+  - <<: *copy_grid_sensor
+    source_id: overall_powerfactor
+    name: "Overall Power Factor"
+    internal: ${ct_a.disable}

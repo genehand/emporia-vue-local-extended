@@ -1,0 +1,21 @@
+sensor:
+####################################
+## Apparent Current Configuration ##
+## Ensure the right voltage       ##
+####################################
+## needs to be calculated from the two sides of apparent current, which is what is measured directly off of the ct_clamps
+    # These have to be added using the root sum of squares method, the lambda below chooses between 2 or 3 phase based on configuration
+  - &template_apparentcurrent
+    platform: template
+    id: total_apparentcurrent
+    # lambda: 'float rss = pow(id(phase_a_apparentcurrent).state, 2) + pow(id(phase_b_apparentcurrent).state, 2) + pow(id(phase_c_apparentcurrent).state, 2); bool disabled = "${ct_c.disable}"; return disabled ? rss * sqrtf(2.0f) : rss * sqrtf(3.0f);'
+    lambda: |-
+        float sq_a = pow(id(phase_a_apparentcurrent).state, 2);
+        float sq_b = pow(id(phase_b_apparentcurrent).state, 2);
+        float sq_c = pow(id(phase_c_apparentcurrent).state, 2);
+        bool disabled = "${ct_c.disable}";
+        return disabled ? sqrt(sq_a + sq_b) : cbrt(sq_a + sq_b + sq_c);
+    update_interval: never
+    device_class: current
+    state_class: measurement
+    unit_of_measurement: "A"

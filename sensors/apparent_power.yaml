@@ -1,0 +1,90 @@
+
+sensor:
+##################################
+## Apparent Power Configuration ##
+##################################
+  - &template_apparentpower
+    platform: template
+    id:  total_apparentpower
+    lambda:  'return id(total_apparentcurrent).state * id(overall_voltage).state;'
+    update_interval: never
+    device_class: apparent_power
+    state_class: measurement
+    unit_of_measurement: VA
+
+  - <<: *template_apparentpower
+    id: phase_a_apparentpower
+    lambda: 'return backfeedable(${ct_a.backfeed}, id(phase_a_apparentcurrent).state * voltage_by_phase("${ct_a.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: phase_b_apparentpower
+    lambda: 'return backfeedable(${ct_b.backfeed}, id(phase_b_apparentcurrent).state * voltage_by_phase("${ct_b.phase}"));' 
+
+  - platform: template
+    id: phase_c_apparentpower
+    lambda: 'return backfeedable(${ct_c.backfeed}, id(phase_c_apparentcurrent).state * voltage_by_phase("${ct_c.phase}"));' 
+
+#####################################
+  - <<: *template_apparentpower
+    id: cir1_apparentpower
+    lambda: 'return backfeedable(${ct_1.backfeed}, id(cir1_apparentcurrent).state * voltage_by_phase("${ct_1.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir2_apparentpower
+    lambda: 'return backfeedable(${ct_2.backfeed}, id(cir2_apparentcurrent).state * voltage_by_phase("${ct_2.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir3_apparentpower
+    lambda: 'return backfeedable(${ct_3.backfeed}, id(cir3_apparentcurrent).state * voltage_by_phase("${ct_3.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir4_apparentpower
+    lambda: 'return backfeedable(${ct_4.backfeed}, id(cir4_apparentcurrent).state * voltage_by_phase("${ct_4.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir5_apparentpower
+    lambda: 'return backfeedable(${ct_5.backfeed}, id(cir5_apparentcurrent).state * voltage_by_phase("${ct_5.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir6_apparentpower
+    lambda: 'return backfeedable(${ct_6.backfeed}, id(cir6_apparentcurrent).state * voltage_by_phase("${ct_6.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir7_apparentpower
+    lambda: 'return backfeedable(${ct_7.backfeed}, id(cir7_apparentcurrent).state * voltage_by_phase("${ct_7.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir8_apparentpower
+    lambda: 'return backfeedable(${ct_8.backfeed}, id(cir8_apparentcurrent).state * voltage_by_phase("${ct_8.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir9_apparentpower
+    lambda: 'return backfeedable(${ct_9.backfeed}, id(cir9_apparentcurrent).state * voltage_by_phase("${ct_9.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir10_apparentpower
+    lambda: 'return backfeedable(${ct_10.backfeed}, id(cir10_apparentcurrent).state * voltage_by_phase("${ct_10.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir11_apparentpower
+    lambda: 'return backfeedable(${ct_11.backfeed}, id(cir11_apparentcurrent).state * voltage_by_phase("${ct_11.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir12_apparentpower
+    lambda: 'return backfeedable(${ct_12.backfeed}, id(cir12_apparentcurrent).state * voltage_by_phase("${ct_12.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir13_apparentpower
+    lambda: 'return backfeedable(${ct_13.backfeed}, id(cir13_apparentcurrent).state * voltage_by_phase("${ct_13.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir14_apparentpower
+    lambda: 'return backfeedable(${ct_14.backfeed}, id(cir14_apparentcurrent).state * voltage_by_phase("${ct_14.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir15_apparentpower
+    lambda: 'return backfeedable(${ct_15.backfeed}, id(cir15_apparentcurrent).state * voltage_by_phase("${ct_15.phase}"));' 
+
+  - <<: *template_apparentpower
+    id: cir16_apparentpower
+    lambda: 'return backfeedable(${ct_16.backfeed}, id(cir16_apparentcurrent).state * voltage_by_phase("${ct_16.phase}"));' 

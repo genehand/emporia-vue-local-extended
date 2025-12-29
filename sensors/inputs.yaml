@@ -1,0 +1,297 @@
+sensor:
+##################################################################################################################################################
+################################################## This is the Main CT Configuration ##################################################
+##################################################################################################################################################
+  - platform: emporia_vue
+    variant: ${vue_variant}
+    i2c_id: i2c_a
+
+    phases:
+      - id: ${red_wire}  # Verify that this specific phase/leg is connected to correct input wire color on device listed below
+        input: RED  # Vue device wire color
+        calibration: ${phase_a_voltage_calibration}
+        voltage:
+          id: phase_a_voltage
+          filters:
+            throttle_average: ${sensor_update_rate}
+          internal: ${ct_a.disable} 
+        phase_angle:
+          id: phase_a_angle
+          filters:
+            throttle_average: ${sensor_update_rate}
+          internal: ${ct_a.disable}
+
+      - id: ${black_wire}  # Verify that this specific phase/leg is connected to correct input wire color on device listed below
+        input: BLACK  # Vue device wire color
+        calibration: ${phase_b_voltage_calibration}  
+        voltage:
+          id: phase_b_voltage
+          filters:
+            throttle_average: ${sensor_update_rate}
+          internal: ${ct_b.disable} 
+        frequency:
+          id: frequency # Only supported on the BLACK wire, pretty sure this isn't calibrated right by the hardware...
+          filters:
+            throttle_average: ${sensor_update_rate}
+          internal: ${ct_b.disable} 
+
+      - id: ${blue_wire}  # Verify that this specific phase/leg is connected to correct input wire color on device listed below
+        input: BLUE  # Vue device wire color
+        calibration: ${phase_c_voltage_calibration}
+        voltage:
+          id: phase_c_voltage
+          filters:
+            throttle_average: ${sensor_update_rate}
+          internal: ${ct_c.disable}
+        phase_angle:
+          id: phase_c_angle
+          filters:
+            throttle_average: ${sensor_update_rate}
+          internal: ${ct_c.disable}
+
+    ct_clamps:
+      # Do not specify a name for any of the power sensors here, only an id. This leaves the power sensors internal to ESPHome.
+      # Copy sensors will filter and then send power measurements to HA
+      # These non-throttled power sensors are used for accurately calculating energy
+
+      # Pay close attention to set the phase_id for each breaker by matching it to the phase/leg it connects to in the panel
+
+      #########################
+      ## CT Clamp Configuration ##
+      #########################
+      
+      - phase_id: ${ct_a.clamp_on}
+        input: "A"
+        power:
+          id: phase_a_powermeas
+        current:
+          id: phase_a_apparentcurrent
+
+      - phase_id: ${ct_b.clamp_on}
+        input: "B"
+        power:
+          id: phase_b_powermeas
+        current:
+          id: phase_b_apparentcurrent
+
+      - phase_id: ${ct_c.clamp_on}
+        input: "C"
+        power:
+          id: phase_c_powermeas
+        current:
+          id: phase_c_apparentcurrent
+
+      - phase_id: ${ct_1.clamp_on}
+        input: "1"
+        power:
+          id: cir1_powermeas
+        current:
+          id: cir1_apparentcurrent
+
+      - phase_id: ${ct_2.clamp_on}
+        input: "2"
+        power:
+          id: cir2_powermeas
+        current:
+          id: cir2_apparentcurrent
+
+      - phase_id: ${ct_3.clamp_on}
+        input: "3"
+        power:
+          id: cir3_powermeas
+        current:
+          id: cir3_apparentcurrent
+
+      - phase_id: ${ct_4.clamp_on}
+        input: "4"
+        power:
+          id: cir4_powermeas
+        current:
+          id: cir4_apparentcurrent
+
+      - phase_id: ${ct_5.clamp_on}
+        input: "5"
+        power:
+          id: cir5_powermeas
+        current:
+          id: cir5_apparentcurrent
+
+      - phase_id: ${ct_6.clamp_on}
+        input: "6"
+        power:
+          id: cir6_powermeas
+        current:
+          id: cir6_apparentcurrent
+
+      - phase_id: ${ct_7.clamp_on}
+        input: "7"
+        power:
+          id: cir7_powermeas
+        current:
+          id: cir7_apparentcurrent
+
+      - phase_id: ${ct_8.clamp_on}
+        input: "8"
+        power:
+          id: cir8_powermeas
+        current:
+          id: cir8_apparentcurrent
+
+      - phase_id: ${ct_9.clamp_on}
+        input: "9"
+        power:
+          id: cir9_powermeas
+        current:
+          id: cir9_apparentcurrent
+
+      - phase_id: ${ct_10.clamp_on}
+        input: "10"
+        power:
+          id: cir10_powermeas
+        current:
+          id: cir10_apparentcurrent
+
+      - phase_id: ${ct_11.clamp_on}
+        input: "11"
+        power:
+          id: cir11_powermeas
+        current:
+          id: cir11_apparentcurrent
+
+      - phase_id: ${ct_12.clamp_on}
+        input: "12"
+        power:
+          id: cir12_powermeas
+        current:
+          id: cir12_apparentcurrent
+
+      - phase_id: ${ct_13.clamp_on}
+        input: "13"
+        power:
+          id: cir13_powermeas
+        current:
+          id: cir13_apparentcurrent
+
+      - phase_id: ${ct_14.clamp_on}
+        input: "14"
+        power:
+          id: cir14_powermeas
+        current:
+          id: cir14_apparentcurrent
+
+      - phase_id: ${ct_15.clamp_on}
+        input: "15"
+        power:
+          id: cir15_powermeas
+        current:
+          id: cir15_apparentcurrent
+
+      - phase_id: ${ct_16.clamp_on}
+        input: "16"
+        power:
+          id: cir16_powermeas
+        current:
+          id: cir16_apparentcurrent
+
+    on_update:
+      then:
+        - component.update: overall_voltage
+        - component.update: phase_a_b_voltage
+        - component.update: phase_b_c_voltage
+        - component.update: phase_a_c_voltage
+
+        - component.update: total_apparentcurrent
+        # - component.update: phase_a_apparentcurrent
+        # - component.update: phase_b_apparentcurrent
+        # - component.update: phase_c_apparentcurrent
+
+        - component.update: total_apparentpower
+        - component.update: phase_a_apparentpower
+        - component.update: phase_b_apparentpower
+        - component.update: phase_c_apparentpower
+
+        - component.update: cir1_apparentpower
+        - component.update: cir2_apparentpower
+        - component.update: cir3_apparentpower
+        - component.update: cir4_apparentpower
+        - component.update: cir5_apparentpower
+        - component.update: cir6_apparentpower
+        - component.update: cir7_apparentpower
+        - component.update: cir8_apparentpower
+        - component.update: cir9_apparentpower
+        - component.update: cir10_apparentpower
+        - component.update: cir11_apparentpower
+        - component.update: cir12_apparentpower
+        - component.update: cir13_apparentpower
+        - component.update: cir14_apparentpower
+        - component.update: cir15_apparentpower
+        - component.update: cir16_apparentpower
+
+        
+        - component.update: total_realpower
+        - component.update: phase_a_realpower
+        - component.update: phase_b_realpower
+        - component.update: phase_c_realpower
+
+        - component.update: cir1_realpower
+        - component.update: cir2_realpower
+        - component.update: cir3_realpower
+        - component.update: cir4_realpower
+        - component.update: cir5_realpower
+        - component.update: cir6_realpower
+        - component.update: cir7_realpower
+        - component.update: cir8_realpower
+        - component.update: cir9_realpower
+        - component.update: cir10_realpower
+        - component.update: cir11_realpower
+        - component.update: cir12_realpower
+        - component.update: cir13_realpower
+        - component.update: cir14_realpower
+        - component.update: cir15_realpower
+        - component.update: cir16_realpower
+
+
+        - component.update: total_realcurrent
+        - component.update: phase_a_realcurrent
+        - component.update: phase_b_realcurrent
+        - component.update: phase_c_realcurrent
+        
+        - component.update: cir1_realcurrent
+        - component.update: cir2_realcurrent
+        - component.update: cir3_realcurrent
+        - component.update: cir4_realcurrent
+        - component.update: cir5_realcurrent
+        - component.update: cir6_realcurrent
+        - component.update: cir7_realcurrent
+        - component.update: cir8_realcurrent
+        - component.update: cir9_realcurrent
+        - component.update: cir10_realcurrent
+        - component.update: cir11_realcurrent
+        - component.update: cir12_realcurrent
+        - component.update: cir13_realcurrent
+        - component.update: cir14_realcurrent
+        - component.update: cir15_realcurrent
+        - component.update: cir16_realcurrent
+
+
+        - component.update: overall_powerfactor
+        - component.update: phase_a_powerfactor
+        - component.update: phase_b_powerfactor
+        - component.update: phase_c_powerfactor
+
+        - component.update: cir1_powerfactor
+        - component.update: cir2_powerfactor
+        - component.update: cir3_powerfactor
+        - component.update: cir4_powerfactor
+        - component.update: cir5_powerfactor
+        - component.update: cir6_powerfactor
+        - component.update: cir7_powerfactor
+        - component.update: cir8_powerfactor
+        - component.update: cir9_powerfactor
+        - component.update: cir10_powerfactor
+        - component.update: cir11_powerfactor
+        - component.update: cir12_powerfactor
+        - component.update: cir13_powerfactor
+        - component.update: cir14_powerfactor
+        - component.update: cir15_powerfactor
+        - component.update: cir16_powerfactor

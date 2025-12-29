@@ -1,0 +1,194 @@
+sensor:
+
+################################
+## Power Factor Configuration ##
+################################
+  - &template_powerfactor
+    platform: template
+    id: overall_powerfactor
+    lambda: return id(total_realpower).state / id(total_apparentpower).state;
+    update_interval: never
+    device_class: power_factor
+    state_class: measurement
+
+  - <<: *template_powerfactor
+    id: phase_a_powerfactor
+    lambda: return id(phase_a_realpower).state / id(phase_a_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: phase_b_powerfactor
+    lambda: return id(phase_b_realpower).state / id(phase_b_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: phase_c_powerfactor
+    lambda: return id(phase_c_realpower).state / id(phase_c_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir1_powerfactor
+    lambda: return id(cir1_realpower).state  /  id(cir1_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir2_powerfactor
+    lambda: return id(cir2_realpower).state  /  id(cir2_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir3_powerfactor
+    lambda: return id(cir3_realpower).state  /  id(cir3_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir4_powerfactor
+    lambda: return id(cir4_realpower).state  /  id(cir4_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir5_powerfactor
+    lambda: return id(cir5_realpower).state  /  id(cir5_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir6_powerfactor
+    lambda: return id(cir6_realpower).state  /  id(cir6_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir7_powerfactor
+    lambda: return id(cir7_realpower).state  /  id(cir7_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir8_powerfactor
+    lambda: return id(cir8_realpower).state  /  id(cir8_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir9_powerfactor
+    lambda: return id(cir9_realpower).state  /  id(cir9_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir10_powerfactor
+    lambda: return id(cir10_realpower).state / id(cir10_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir11_powerfactor
+    lambda: return id(cir11_realpower).state / id(cir11_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir12_powerfactor
+    lambda: return id(cir12_realpower).state / id(cir12_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir13_powerfactor
+    lambda: return id(cir13_realpower).state / id(cir13_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir14_powerfactor
+    lambda: return id(cir14_realpower).state / id(cir14_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir15_powerfactor
+    lambda: return id(cir15_realpower).state / id(cir15_apparentpower).state;
+
+
+  - <<: *template_powerfactor
+    id: cir16_powerfactor
+    lambda: return id(cir16_realpower).state / id(cir16_apparentpower).state;
+
+
+  ################################
+  ## Power Factor Configuration ##
+  ################################
+  - &copy_powerfactor_sensor
+    platform: copy
+    device_id: cir1
+    source_id: cir1_powerfactor
+    name: "Power Factor"
+    internal: ${ct_1.disable}
+    filters:
+      throttle_average: ${sensor_update_rate}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir2
+    source_id: cir2_powerfactor
+    internal: ${ct_2.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir3
+    source_id: cir3_powerfactor
+    internal: ${ct_3.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir4
+    source_id: cir4_powerfactor
+    internal: ${ct_4.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir5
+    source_id: cir5_powerfactor
+    internal: ${ct_5.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir6
+    source_id: cir6_powerfactor
+    internal: ${ct_6.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir7
+    source_id: cir7_powerfactor
+    internal: ${ct_7.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir8
+    source_id: cir8_powerfactor
+    internal: ${ct_8.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir9
+    source_id: cir9_powerfactor
+    internal: ${ct_9.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir10
+    source_id: cir10_powerfactor
+    internal: ${ct_10.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir11
+    source_id: cir11_powerfactor
+    internal: ${ct_11.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir12
+    source_id: cir12_powerfactor
+    internal: ${ct_12.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir13
+    source_id: cir13_powerfactor
+    internal: ${ct_13.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir14
+    source_id: cir14_powerfactor
+    internal: ${ct_14.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir15
+    source_id: cir15_powerfactor
+    internal: ${ct_15.disable}
+
+  - <<: *copy_powerfactor_sensor
+    device_id: cir16
+    source_id: cir16_powerfactor
+    internal: ${ct_16.disable}
