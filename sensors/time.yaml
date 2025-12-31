@@ -1,0 +1,17 @@
+script:
+  - id: time_sync_script
+    then:
+      - logger.log: "Time Synchronized Successfully"
+      - binary_sensor.template.publish:
+          id: time_synchronized
+          state: ON
+      - delay: 10s
+      - binary_sensor.template.publish:
+          id: time_synchronized
+          state: OFF
+
+binary_sensor:
+  - platform: template
+    name: "Time Synchronized"
+    id: time_synchronized
+    entity_category: diagnostic
