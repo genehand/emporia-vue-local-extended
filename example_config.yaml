@@ -83,24 +83,7 @@ time:
 ####################
     on_time_sync: 
       then:
-      - logger.log: "Time Synchronized Successfully"
-      - binary_sensor.template.publish:
-          id: time_synchronized
-          state: ON
-      - delay: 10s
-      - binary_sensor.template.publish:
-          id: time_synchronized
-          state: OFF
-
-binary_sensor:
-  - platform: template
-    name: "Time Synchronized"
-    id: time_synchronized
-    entity_category: diagnostic
-
-button:
-  - platform: safe_mode
-    name: "Safe Mode Restart"
+        - script.execute: time_sync_script
 
 ##################################################################
 esphome:
