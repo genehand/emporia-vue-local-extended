@@ -97,26 +97,31 @@ Each clamp must be configured from the following options:
 |------------|---------------------------|--------------------------------------------------------------------------------------------------|
 | `disable`  | `"true"`, `"false"`       | Marks the sensor as internal so all related measurement and calculations are ignored (must be in quotes due to ESPHome parsing inconsistencies)          |
 | `backfeed` | `"true"`, `"false"`       | Allows or clamps negative sensor values (also must be in quotes)                                 |
-| `phase`    | `a`, `b`, `c`, `ab`, `ac`, `bc` | Sets the voltage phase or crossphase (for split-phase circuts) for the measurement               |
+| `phase`    | `a`, `b`, `c`, `ab`, `ac`, `bc`, `abc` | Sets the voltage phase or crossphase (for split-phase circuts) for the measurement               |
 | `clamp_on` | `phase_a`, `phase_b`, `phase_c` | Specifies the physical phase where the clamp is actually installed (i.e. a split phase measurement across A and B with the clamp on phase_b    |
 
 ## Some Math used for the sensors
 #### Real Power
 ```math
-\left(\frac{W_{\text{measured}}}{V_{\text{phase}}}\right)\times V_{\text{crossphase}} = W_{\text{actual}}
+ P_{\text{actual}} = \left(\frac{P_{\text{measured}}}{V_{\text{phase}}}\right)\times V_{\text{crossphase}}
 ```
 #### Real Current
 ```math
-\frac{W_{\text{actual}}}{V_{\text{phase}}} = A_{\text{real}}
+I_{\text{real}} = \frac{P_{\text{actual}}}{V_{\text{phase}}}
+```
+#### Apparent Current
+- Interesting note is that we don't use the Phase Angle in any calculations other than apparent current, because the Atmega does that already to calculate the
+Real Power. We don't even have to use it for the Apparent Current, but it is slightly more accurate than root sum of squares
+```math
+I_{\text{apparent}} = \frac{P}{V \cdot \cos(\theta)}
 ```
 #### Apparent Power
-- Interesting note is that we don't use the Phase Angle in any calculations because the Atmega does that already to calculate the Real Power
 ```math
-V_{\text{phase}} * A_{\text{apparent}} = \text{VA}
+\text{VA} = V_{\text{phase}} * I_{\text{apparent}}
 ```
 #### Power Factor
 ```math
-\frac{W}{\text{VA}} = \text{PF}
+\text{PF} = \frac{W}{\text{VA}}
 ```
 ## Notes
 The bottleneck on update_rate is always going to be your HomeAssistant host and database preformance. I've been running two of these devices doing all of these calculations at a 500ms update rate for over 2 years now with no issues.
