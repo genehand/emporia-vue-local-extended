@@ -18,13 +18,17 @@ class PhaseConfig : public Component {
  
    // setters wired from YAML via init.py
    void set_overall_voltage(sensor::Sensor *s) { overall_voltage_ = s; }
-   void set_phase_a_b_voltage(sensor::Sensor *s) { phase_a_b_voltage_ = s; }
-   void set_phase_b_c_voltage(sensor::Sensor *s) { phase_b_c_voltage_ = s; }
-   void set_phase_a_c_voltage(sensor::Sensor *s) { phase_a_c_voltage_ = s; }
+
    void set_phase_a_voltage(sensor::Sensor *s) { phase_a_voltage_ = s; }
    void set_phase_b_voltage(sensor::Sensor *s) { phase_b_voltage_ = s; }
    void set_phase_c_voltage(sensor::Sensor *s) { phase_c_voltage_ = s; }
- 
+
+   void set_phase_a_b_voltage(sensor::Sensor *s) { phase_a_b_voltage_ = s; }
+   void set_phase_b_c_voltage(sensor::Sensor *s) { phase_b_c_voltage_ = s; }
+   void set_phase_a_c_voltage(sensor::Sensor *s) { phase_a_c_voltage_ = s; }
+   
+   void set_phase_a_b_c_voltage(sensor::Sensor *s) { phase_a_b_c_voltage_ = s; }
+
    float voltage_by_phase(const std::string &phaseraw) const;
    float single_phase_voltage(const std::string &phaseraw) const;
  
@@ -32,12 +36,16 @@ class PhaseConfig : public Component {
    static std::string normalize_phase_(std::string phase);
  
    sensor::Sensor *overall_voltage_{nullptr};
-   sensor::Sensor *phase_a_b_voltage_{nullptr};
-   sensor::Sensor *phase_b_c_voltage_{nullptr};
-   sensor::Sensor *phase_a_c_voltage_{nullptr};
+
    sensor::Sensor *phase_a_voltage_{nullptr};
    sensor::Sensor *phase_b_voltage_{nullptr};
    sensor::Sensor *phase_c_voltage_{nullptr};
+   
+   sensor::Sensor *phase_a_b_voltage_{nullptr};
+   sensor::Sensor *phase_b_c_voltage_{nullptr};
+   sensor::Sensor *phase_a_c_voltage_{nullptr};
+   
+   sensor::Sensor *phase_a_b_c_voltage_{nullptr};
  };
 
 // Singleton pointer set in setup()

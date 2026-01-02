@@ -33,6 +33,8 @@ float PhaseConfig::voltage_by_phase(const std::string &phase_raw) const {
   if (phase == "b" && phase_b_voltage_ != nullptr) return phase_b_voltage_->state;
   if (phase == "c" && phase_c_voltage_ != nullptr) return phase_c_voltage_->state;
 
+  if (phase == "abc" && phase_a_b_c_voltage_ != nullptr) return phase_a_b_c_voltage_->state;
+
   if (overall_voltage_ != nullptr ) return overall_voltage_->state;
   return NAN;
 }

@@ -36,3 +36,13 @@ sensor:
     id: phase_a_c_voltage
     lambda: 'return id(phase_a_voltage).state + id(phase_c_voltage).state;'
     internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase
+
+  - <<: *template_voltage
+    name: "Phase ABC Voltage"
+    id: phase_a_b_c_voltage
+    lambda: |-
+        float sq_a = pow(id(phase_a_voltage).state, 2);
+        float sq_b = pow(id(phase_b_voltage).state, 2);
+        float sq_c = pow(id(phase_c_voltage).state, 2);
+        return sqrt(sq_a + sq_b + sq_c);
+    internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase
