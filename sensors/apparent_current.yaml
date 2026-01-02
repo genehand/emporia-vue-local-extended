@@ -8,12 +8,6 @@ sensor:
   - &template_apparentcurrent
     platform: template
     id: total_apparentcurrent
-    # lambda: |-
-    #     float sq_a = pow(id(phase_a_apparentcurrent).state, 2);
-    #     float sq_b = pow(id(phase_b_apparentcurrent).state, 2);
-    #     float sq_c = pow(id(phase_c_apparentcurrent).state, 2);
-    #     bool disabled = "${ct_c.disable}";
-    #     return disabled ? sqrt(sq_a + sq_b) : sqrt(sq_a + sq_b + sq_c);
     lambda: |-
         float Ia = id(phase_a_apparentcurrent).state;
         float Ib = id(phase_b_apparentcurrent).state;
