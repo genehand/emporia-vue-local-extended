@@ -46,6 +46,7 @@ substitutions:
 packages:
   emporia_vue_extended:
     url: https://github.com/Legot/emporia-vue-local-extended
+    ref: 3pole-dev
     files: [vue_base.yaml]
 
 ##################################################################
