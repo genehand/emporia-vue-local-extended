@@ -23,6 +23,25 @@ phase_config: # Do Not edit here. Edit the substitutions.
   phase_a_c_voltage: phase_a_c_voltage
   phase_a_b_c_voltage: phase_a_b_c_voltage
 
+substitutions:
+  clamp_on:
+    cir1:   'phase_${ct_1.phase[0:1]}
+    cir2:   'phase_${ct_2.phase[0:1]}
+    cir3:   'phase_${ct_3.phase[0:1]}
+    cir4:   'phase_${ct_4.phase[0:1]}
+    cir5:   'phase_${ct_5.phase[0:1]}
+    cir6:   'phase_${ct_6.phase[0:1]}
+    cir7:   'phase_${ct_7.phase[0:1]}
+    cir8:   'phase_${ct_8.phase[0:1]}
+    cir9:   'phase_${ct_9.phase[0:1]}
+    cir10: 'phase_${ct_10.phase[0:1]}
+    cir11: 'phase_${ct_11.phase[0:1]}
+    cir12: 'phase_${ct_12.phase[0:1]}
+    cir13: 'phase_${ct_13.phase[0:1]}
+    cir14: 'phase_${ct_14.phase[0:1]}
+    cir15: 'phase_${ct_15.phase[0:1]}
+    cir16: 'phase_${ct_16.phase[0:1]}
+
 packages:
   - !include sensors/inputs.yaml
   - !include sensors/grid_sensors.yaml
