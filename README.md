@@ -88,7 +88,7 @@ substitutions:
   ct_1:
     disable: "false"
     backfeed: "false"
-    phase: a
+    phase: ab
 ```
 Each clamp must be configured from the following options:
 
@@ -97,6 +97,14 @@ Each clamp must be configured from the following options:
 | `disable`  | `"true"`, `"false"`       | Marks the sensor as internal so all related measurement and calculations are ignored (must be in quotes due to ESPHome parsing inconsistencies)          |
 | `backfeed` | `"true"`, `"false"`       | Allows or clamps negative sensor values (also must be in quotes)                                 |
 | `phase`    | `a`, `b`, `c`, `ab`/`ba`, `ac`/`ca`, `bc`/`cb`, `abc`/`acb`/`bac`/`bca`/`cab`/`cba` | Sets the voltage phase or crossphase (for split-phase circuts) for the measurement, accepts permutations of the phase ordering, correct phase ordering here improves accuracy. **The first letter in the phase must be which phase the clamp is installed on.**|
+
+### The order of the letters in your "phase:" substitution matter!
+- The first letter in "phase:" should be the phase that the current clamp is installed on.
+- The second letter is only used for crossphase and 3-phase circuits, and should match the appropriate phase/leg.
+- The third letter is only used for 3-phase circuits and should match the appropriate phase.
+
+*This is the most complicated part of the configuration, it's important to get this right!*
+
 
 ## Some Math used for the sensors
 #### Real Power
