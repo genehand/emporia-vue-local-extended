@@ -25,7 +25,7 @@ std::string PhaseConfig::normalize_phase_(std::string phase) {
 // voltage_by_phase  sorts the phase configuration letters alphabetically and outputs the overall voltage for the configured phases
 float PhaseConfig::voltage_by_phase(const std::string &phase_raw) const {
     std::string phase = normalize_phase_(phase_raw);
-    std::sort(phase.begin(), phase.end());
+    std::sort(phase.begin(), phase.end());  // Sort the input phase string alphabetically
 
     if (phase == "a" && phase_a_voltage_ != nullptr) return phase_a_voltage_->state;
     if (phase == "b" && phase_b_voltage_ != nullptr) return phase_b_voltage_->state;
