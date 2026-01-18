@@ -191,32 +191,6 @@
     source_id: cir16_realpower
     internal: ${ct_16.disable}
 
-  - platform: template
-    lambda: !lambda |-
-      return max(0.0f, id(total_realpower).state -
-        id( cir1_realpower).state -
-        id( cir2_realpower).state -
-        id( cir3_realpower).state -
-        id( cir4_realpower).state -
-        id( cir5_realpower).state -
-        id( cir6_realpower).state -
-        id( cir7_realpower).state -
-        id( cir8_realpower).state -
-        id( cir9_realpower).state -
-        id(cir10_realpower).state -
-        id(cir11_realpower).state -
-        id(cir12_realpower).state -
-        id(cir13_realpower).state -
-        id(cir14_realpower).state -
-        id(cir15_realpower).state -
-        id(cir16_realpower).state);
-    update_interval: never   # via `on_update` trigger
-    id: balance_power
-    device_class: power
-    state_class: measurement
-    unit_of_measurement: "W"
-    internal: ${xtra.disable}
-
   - <<: *copy_realpower_sensor
     device_id: xtra_power
     source_id: balance_power
