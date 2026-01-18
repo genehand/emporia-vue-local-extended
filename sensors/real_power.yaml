@@ -194,22 +194,22 @@
   - platform: template
     lambda: !lambda |-
       return max(0.0f, id(total_realpower).state -
-        id( cir1).state -
-        id( cir2).state -
-        id( cir3).state -
-        id( cir4).state -
-        id( cir5).state -
-        id( cir6).state -
-        id( cir7).state -
-        id( cir8).state -
-        id( cir9).state -
-        id(cir10).state -
-        id(cir11).state -
-        id(cir12).state -
-        id(cir13).state -
-        id(cir14).state -
-        id(cir15).state -
-        id(cir16).state);
+        id( cir1_realpower).state -
+        id( cir2_realpower).state -
+        id( cir3_realpower).state -
+        id( cir4_realpower).state -
+        id( cir5_realpower).state -
+        id( cir6_realpower).state -
+        id( cir7_realpower).state -
+        id( cir8_realpower).state -
+        id( cir9_realpower).state -
+        id(cir10_realpower).state -
+        id(cir11_realpower).state -
+        id(cir12_realpower).state -
+        id(cir13_realpower).state -
+        id(cir14_realpower).state -
+        id(cir15_realpower).state -
+        id(cir16_realpower).state);
     update_interval: never   # via `on_update` trigger
     id: balance_power
     device_class: power
