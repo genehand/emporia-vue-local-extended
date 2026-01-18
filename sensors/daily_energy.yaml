@@ -97,6 +97,6 @@
     internal: ${ct_a.disable}
 
   - <<: *total_daily_energy_sensor
-    device_id: grid_service
+    device_id: xtra_power
     power_id: balance_power
     internal: ${xtra.disable}
