@@ -297,7 +297,7 @@ sensor:
         - component.update: cir16_powerfactor
 
         - component.update: balance_power
-        - component.update: phase_a_cur
-        - component.update: phase_b_cur
+        - component.update: phase_a_120_cur
+        - component.update: phase_b_120_cur
         - component.update: onetwenty_cur
         - component.update: twooeight_cur
