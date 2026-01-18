@@ -190,3 +190,43 @@
     device_id: cir16
     source_id: cir16_realpower
     internal: ${ct_16.disable}
+
+  - platform: template
+    lambda: !lambda |-
+      return max(0.0f, id(total_realpower).state -
+        id( cir1).state -
+        id( cir2).state -
+        id( cir3).state -
+        id( cir4).state -
+        id( cir5).state -
+        id( cir6).state -
+        id( cir7).state -
+        id( cir8).state -
+        id( cir9).state -
+        id(cir10).state -
+        id(cir11).state -
+        id(cir12).state -
+        id(cir13).state -
+        id(cir14).state -
+        id(cir15).state -
+        id(cir16).state);
+    update_interval: never   # via `on_update` trigger
+    id: balance_power
+    device_class: power
+    state_class: measurement
+    unit_of_measurement: "W"
+    internal: ${xtra.disable}
+
+  - platform: total_daily_energy
+    name: "${xtra} Daily Energy"
+    power_id: balance_power
+    accuracy_decimals: 0
+    restore: false
+    filters:
+      throttle: ${energy_update_rate}
+    internal: ${xtra.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: xtra_power
+    source_id: balance_power
+    internal: ${xtra.disable}

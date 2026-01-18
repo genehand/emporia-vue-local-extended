@@ -295,3 +295,5 @@ sensor:
         - component.update: cir14_powerfactor
         - component.update: cir15_powerfactor
         - component.update: cir16_powerfactor
+
+        - component.update: balance_power
