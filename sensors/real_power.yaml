@@ -190,3 +190,8 @@
     device_id: cir16
     source_id: cir16_realpower
     internal: ${ct_16.disable}
+
+  - <<: *copy_realpower_sensor
+    device_id: xtra_power
+    source_id: balance_power
+    internal: ${xtra.disable}

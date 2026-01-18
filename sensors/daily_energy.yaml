@@ -96,10 +96,7 @@
     name: "Total Daily Energy"
     internal: ${ct_a.disable}
 
-
-
-
-
-
-
-
+  - <<: *total_daily_energy_sensor
+    device_id: xtra_power
+    power_id: balance_power
+    internal: ${xtra.disable}

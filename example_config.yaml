@@ -41,6 +41,8 @@ substitutions:
   ct_15: { disable: "false", backfeed: "false", phase: a  }
   ct_16: { disable: "false", backfeed: "false", phase: b  }
 
+  xtra:  { disable: "false", backfeed: "false", phase: ab }
+
 
 
 packages:
@@ -158,6 +160,11 @@ esphome:
     - id: cir16
       name: "Welder 240V Circuit Leg B"
       area_id: garage
+
+    - id: xtra_power
+      name: Balance
+      area_id: garage
+
 #################################
   areas:
     - id: electrical_panel
