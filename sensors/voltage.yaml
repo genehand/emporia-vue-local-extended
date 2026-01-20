@@ -13,7 +13,13 @@ sensor:
         float sq_b = pow(id(phase_b_voltage).state, 2);
         float sq_c = pow(id(phase_c_voltage).state, 2);
         bool disabled = "${ct_c.disable}";
-        return disabled ? (a + b) : sqrt(sq_a + sq_b + sq_c);
+
+        if (disabled) {
+          bool split = (int) round(id(phase_a_angle).state) == 180;
+          return split ? (a + b) : sqrt(sq_a + sq_b + (a * b));
+        } else {
+          return sqrt(sq_a + sq_b + sq_c);
+        }
     update_interval: never
     device_class: voltage
     state_class: measurement
@@ -22,7 +28,8 @@ sensor:
   - <<: *template_voltage
     name: "Phase AB Voltage"
     id: phase_a_b_voltage
-    lambda: 'return id(phase_a_voltage).state + id(phase_b_voltage).state;'
+    # lambda: 'return id(phase_a_voltage).state + id(phase_b_voltage).state;'
+    lambda: return id(overall_voltage).state;
     internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase
 
   - <<: *template_voltage
