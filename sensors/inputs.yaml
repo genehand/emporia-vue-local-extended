@@ -303,7 +303,8 @@ sensor:
 
   - platform: template
     lambda: !lambda |-
-      return max(0.0f, id(total_realpower).state -
+      return backfeedable(${xtra.backfeed}, (
+        id(total_realpower).state -
         id( cir1_realpower).state -
         id( cir2_realpower).state -
         id( cir3_realpower).state -
@@ -319,7 +320,8 @@ sensor:
         id(cir13_realpower).state -
         id(cir14_realpower).state -
         id(cir15_realpower).state -
-        id(cir16_realpower).state);
+        id(cir16_realpower).state)
+      );
     update_interval: never
     id: balance_power
     device_class: power

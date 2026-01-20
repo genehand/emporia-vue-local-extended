@@ -41,7 +41,7 @@ substitutions:
   ct_15: { disable: "false", backfeed: "false", phase: a  }
   ct_16: { disable: "false", backfeed: "false", phase: b  }
 
-  xtra:  { disable: "false", backfeed: "false", phase: ab }
+  xtra:  { disable: "false", backfeed: "false" }
 
 
 
