@@ -199,7 +199,6 @@ sensor:
         - component.update: phase_a_b_voltage
         - component.update: phase_b_c_voltage
         - component.update: phase_a_c_voltage
-        - component.update: split_phase_system
 
         - component.update: total_apparentcurrent
         # - component.update: phase_a_apparentcurrent
