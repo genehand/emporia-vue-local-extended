@@ -1,4 +1,18 @@
 
+binary_sensor:
+  - platform: template
+    id: split_phase_system
+    lambda: |-
+      bool ct_c_disabled = "${ct_c.disable}";
+
+      if (ct_c_disabled) {
+          bool split = (int) round(id(phase_a_angle).state) == 180;
+          return split;
+      } else {
+          return false;
+      }
+    internal: true
+
 sensor:
 ###########################
 ## Voltage Configuration ##
@@ -13,7 +27,14 @@ sensor:
         float sq_b = pow(id(phase_b_voltage).state, 2);
         float sq_c = pow(id(phase_c_voltage).state, 2);
         bool disabled = "${ct_c.disable}";
-        return disabled ? (a + b) : sqrt(sq_a + sq_b + sq_c);
+
+        // For two legs not split by 180 degrees, consider them part of a 3-phase system
+        if (disabled) {
+          bool split = id(split_phase_system).state;
+          return split ? (a + b) : sqrt(sq_a + sq_b + (a * b));
+        } else {
+          return sqrt(sq_a + sq_b + sq_c);
+        }
     update_interval: never
     device_class: voltage
     state_class: measurement
@@ -22,20 +43,44 @@ sensor:
   - <<: *template_voltage
     name: "Phase AB Voltage"
     id: phase_a_b_voltage
-    lambda: 'return id(phase_a_voltage).state + id(phase_b_voltage).state;'
-    internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase
+    lambda: |-
+      float a = id(phase_a_voltage).state;
+      float b = id(phase_b_voltage).state;
+      float sq_a = pow(id(phase_a_voltage).state, 2);
+      float sq_b = pow(id(phase_b_voltage).state, 2);
+      bool disabled = "${ct_c.disable}";
+      bool split = id(split_phase_system).state;
+
+      if (disabled && split) {
+        return id(phase_a_voltage).state + id(phase_b_voltage).state;
+      } else {
+        return sqrt(sq_a + sq_b + (a * b));
+      }
+    internal: ${ct_c.disable} # The voltage measurements are internal unless 3 phase
 
   - <<: *template_voltage
     name: "Phase BC Voltage"
     id: phase_b_c_voltage
-    lambda: 'return id(phase_b_voltage).state + id(phase_c_voltage).state;'
-    internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase
+    lambda: |-
+        float b = id(phase_b_voltage).state;
+        float c = id(phase_c_voltage).state;
+        float sq_b = pow(id(phase_b_voltage).state, 2);
+        float sq_c = pow(id(phase_c_voltage).state, 2);
+
+        return sqrt(sq_b + sq_c + (b * c));
+    internal: ${ct_c.disable} # The voltage measurements are internal unless 3 phase
 
   - <<: *template_voltage
     name: "Phase AC Voltage"
     id: phase_a_c_voltage
-    lambda: 'return id(phase_a_voltage).state + id(phase_c_voltage).state;'
-    internal: ${ct_c.disable} # The voltage measurements are disabled unless 3 phase
+    lambda: |-
+        float a = id(phase_a_voltage).state;
+        float c = id(phase_c_voltage).state;
+        float sq_a = pow(id(phase_a_voltage).state, 2);
+        float sq_c = pow(id(phase_c_voltage).state, 2);
+
+        return sqrt(sq_a + sq_c + (a * c));
+    internal: ${ct_c.disable} # The voltage measurements are internal unless 3 phase
 
   - <<: *template_voltage
     name: "Phase ABC Voltage"
