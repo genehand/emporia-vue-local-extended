@@ -93,70 +93,87 @@ esphome:
     - id: grid_service
       name: "Main Electrical Service"
       area_id: electrical_panel
+      relation: child
 
     - id: cir1
       name: "Kitchen Range 240V Circuit"
       area_id: kitchen
+      relation: child
 
     - id: cir2
       name: "Laundry Dryer 240V Circuit"
       area_id: laundry_room
+      relation: child
 
     - id: cir3
       name: "Kitchen Microwave Circuit"
       area_id: kitchen
+      relation: child
 
     - id: cir4
       name: "Kitchen Undersink GFCI Circuit"
       area_id: kitchen
+      relation: child
 
     - id: cir5
       name: "Kitchen GFCI Circuit"
       area_id: kitchen
+      relation: child
 
     - id: cir6
       name: "Kitchen Circuit"
       area_id: kitchen
+      relation: child
 
     - id: cir7
       name: "HVAC Air Handler, Hallway Cabinet Circuit"
       area_id: upstairs_hallway
+      relation: child
 
     - id: cir8
       name: "Kitchen Fridge Circuit"
       area_id: kitchen
+      relation: child
 
     - id: cir9
       name: "Laundry Washer Circuit"
       area_id: laundry_room
+      relation: child
 
     - id: cir10
       name: "Mini Split 240V Circuit Leg B"
       area_id: guest_bedroom
+      relation: child
 
     - id: cir11
       name: "CT11 Unused"
       area_id: electrical_panel
+      relation: child
     
     - id: cir12
       name: "Guest Bedroom Circuit"
       area_id: guest_bedroom
+      relation: child
     
     - id: cir13
       name: "Mini Split 240V Circuit Leg A"
       area_id: guest_bedroom
+      relation: child
     
     - id: cir14
       name: "Side Yard 240V Circuit"
       area_id: side_yard
+      relation: child
     
     - id: cir15
       name: "Welder 240V Circuit Leg A"
       area_id: garage
+      relation: child
     
     - id: cir16
       name: "Welder 240V Circuit Leg B"
       area_id: garage
+      relation: child
 #################################
   areas:
     - id: electrical_panel
